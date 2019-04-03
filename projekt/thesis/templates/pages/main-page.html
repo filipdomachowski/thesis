@@ -1,0 +1,20 @@
+<container-fluid>     
+    <div class="row header-area">
+        
+    </div>
+    <div class="row body-area">
+        <div class="col-md-8 col-md-offset-2 col-xs-12">
+            <h4>Witamy na stronie naszego warsztatu</h4>
+            <p>Jest to platforma stworzona dla wygody użytkownika</p>
+            <p>W strefie klienta możesz założyć konto, zapisać kartę swojego pojazdu oraz zamawiać usługi online.</p>
+            <p>Zachęcamy do korzystania z naszych usług!</p>
+            <p>Poniżej będą znajdować się informacje o promocajch, rabatach i pracy warsztatu w zależności od rożnych okoliczności.</p>
+        </div>
+        <div class="col-md-8 col-md-offset-2 col-xs-12" ng-repeat="note in notes">            
+            <sn-information-note sn-note-text="note.text"></sn-information-note>
+        </div>
+    </div>
+    <div class="row footer-area">        
+            
+    </div>
+</container-fluid>

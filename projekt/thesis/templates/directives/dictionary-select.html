@@ -1,0 +1,11 @@
+<input 
+    class="form-control sn-dict-select"      
+    type="text" 
+    readonly
+    ng-model="dictItem" 
+    ng-click="expandList()">
+<div ng-if="listExpanded" 
+    ng-repeat="item in itemsList" 
+    ng-click="selectItem(item); snChange({item: item.key})" 
+    style="background-color:lightgreen">{{item.key}}
+</div>

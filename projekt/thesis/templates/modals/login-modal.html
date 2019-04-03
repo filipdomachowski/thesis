@@ -1,0 +1,27 @@
+<form class="form-horizontal">
+        <div class="modal-header">
+            <h5>Logowanie</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row form-group">
+                <label class="form-label col-xs-6">Nazwa użytkownika</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="text" ng-model="username">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="form-label col-xs-6">Hasło</label>
+                <div class="col-xs-6">
+                    <input class="form-control" type="password" ng-model="password">
+                </div>
+            </div>            
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-12 text-right">
+                <button class="btn confirm-btn" ng-disabled="username === null || password === null" ng-click="login()">Zaloguj</button>                            
+                <button class="btn" ng-click="no()">Anuluj</button>                           
+            </div>
+          </div>
+        </div>
+    </form>

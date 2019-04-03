@@ -1,0 +1,33 @@
+{
+  "name": "snikuws",
+  "version": "1.0.0",
+  "description": "BEng-Thesis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Filip Domachowski",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.6.3",
+    "angular": "^1.7.5",
+    "angular-animate": "^1.7.5",
+    "angular-route": "^1.7.5",
+    "angular-sanitize": "^1.7.8",
+    "angular-ui-bootstrap": "^2.5.6",
+    "angularjs-toast": "^2.0.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "bootstrap3": "^3.3.5",
+    "express": "^4.16.4",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-nodemon": "^2.4.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-stylus": "^2.7.0",
+    "jquery": "^3.3.1",
+    "jwt-simple": "^0.5.5",
+    "mongoose": "^5.3.15",
+    "nodemon": "^1.18.7"
+  }
+}

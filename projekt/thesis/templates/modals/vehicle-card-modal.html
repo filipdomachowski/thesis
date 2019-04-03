@@ -1,0 +1,79 @@
+<form class="form-horizontal">
+    <div class="modal-header">
+        <h5>Dodawanie karty pojazdu</h5>
+    </div>
+    <div class="modal-body">   
+        <div class="row">
+            <div class="vehicle-card-wrapper" ng-repeat="card in vehicleCardsList | limitTo : itemsPerPage : (currentPage-1) * itemsPerPage" ng-class="{lastItem: $last}">                  
+                <div class="row form-group">
+                    <label class="form-label col-xs-6">Marka</label>
+                    <div class="col-xs-6">                       
+                        <sn-dictionary-select                            
+                            sn-value="card.brand" 
+                            sn-dict-key="'brands'"
+                            sn-change="callback(item, 'brand', ['model', 'engine'], currentPage-1)">
+                        </sn-dictionary-select>
+                    </div>                
+                </div>
+                <div class="row form-group">
+                    <label class="form-label col-xs-6">Model</label>
+                    <div class="col-xs-6">
+                        <sn-dictionary-select 
+                            sn-value="card.model" 
+                            sn-dict-key="card.brand"
+                            sn-change="callback(item, 'model', ['engine'], currentPage-1)">
+                        </sn-dictionary-select>
+                    </div>                
+                </div>
+                <div class="row form-group">
+                    <label class="form-label col-xs-6">Silnik</label>
+                    <div class="col-xs-6">
+                        <sn-dictionary-select 
+                            sn-value="card.engine" 
+                            sn-dict-key="'Engines'"
+                            sn-parent-key="card.model">
+                        </sn-dictionary-select>
+                    </div>               
+                </div>
+                
+                <!-- <div class="row form-group">
+                    <label class="form-label col-xs-6">Moc</label>
+                    <div class="col-xs-6">
+                        <sn-dictionary-select 
+                            sn-value="model" 
+                            sn-dict-key="brand">
+                        </sn-dictionary-select>
+                    </div>
+                </div> -->
+                <div class="row form-group">
+                    <label class="form-label col-xs-6">Przebieg</label>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="text" ng-model="card.milage">
+                    </div>
+                </div>            
+            </div>
+            <div class="row form-group">
+                <button class="btn primary-btn" ng-click="addVehicleCard()">Dodaj kartę pojazdu</button>
+            </div>   
+        </div>     
+        <div class="row form-group">
+            <ul uib-pagination                 
+                total-items="vehicleCardsList.length" 
+                ng-model="currentPage"
+                max-size="5" 
+                boundary-links="true"
+                items-per-page="itemsPerPage" 
+                class="pagination-sm">
+            </ul>    
+        </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-12 text-right">
+            <button class="btn confirm-btn" ng-click="yes()">Utwórz użytkownika</button>                            
+            <button class="btn confirm-btn" ng-click="show()">poka</button>                            
+            <button class="btn" ng-click="no()">Zamknij</button>                           
+        </div>
+      </div>
+    </div>
+</form>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SNiKUWS</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">   
+
+    <link rel="stylesheet" href="/bootstrap3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/snikuws.css">
+    <link rel="stylesheet" href="/angularjs-toast/angularjs-toast.min.css">
+    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
+
+    
+    <script type="text/javascript" src="/angular/angular.min.js"></script> 
+    <script type="text/javascript" src="/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bootstrap3/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="/angularjs-toast/angularjs-toast.min.js"></script>
+    <script type="text/javascript" src="/@fortawesome/fontawesome-free/js/all.min.js"></script>
+    <script type="text/javascript" src="/snikuws.js"></script> 
+    
+</head>
+    <body ng-app="app-root-controller" ng-controller="main-controller">
+        <div class="container-fluid">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Snikuws</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#!/mainPage">Strona główna</a></li>
+                        <li><a href="#!/clientPage">Strefa Klienta</a></li>
+                        <li><a href="#">Page 2</a></li>
+                        <li><a href="#">Page 3</a></li>
+                    </ul>
+                    <p ng-if='currentUser' class="navbar-text navbar-right">
+                        {{$root.currentUser.username}}
+                    </p>
+                </div>
+            </nav>
+            <div ng-view></div>            
+        </div>
+    </body>
+</html>
