@@ -1,0 +1,21 @@
+<div class="row item-container" ng-repeat="item in itemsList">
+    <div class="col-xs-11" style="padding: 0">
+        <div class="col-xs-6 item-key" ng-mouseover="showDesc = true" ng-mouseleave="showDesc = false">
+            <span>{{item.key}}</span>
+        </div>
+        <div class="col-xs-3 item-param2">
+            <span ng-if="item.param2 !== undefined">{{item.param2}}</span>
+            <span ng-if="item.param2 === undefined"> - </span>
+        </div>
+        <div class="col-xs-3 item-param">
+            <span ng-if="item.param !== undefined">{{item.param}}</span>
+            <span ng-if="item.param === undefined"> - </span>
+        </div>
+        <div ng-show="showDesc" class="col-xs-12 item-description">
+            <span>{{item.description}}</span>
+        </div>
+    </div>
+    <div class="col-xs-1" style="padding: 0">
+        <input type="checkbox" ng-click="addToDictionaryList(item)" ng-checked="isChecked(item)">
+    </div>
+</div>

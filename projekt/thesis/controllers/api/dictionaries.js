@@ -29,4 +29,27 @@ router.post('/', (req, res, next) => {
     })
 })
 
+router.patch('/', function(req, res){     
+    
+    Dict.bulkWrite(req.body.map(function(dict){
+        return {
+            updateOne:{
+                filter:{
+                    _id : dict._id
+                },
+                update:{
+                    $set:{
+                        key: dict.key,
+                        parentKey: dict.parentKey,
+                        entries: dict.entries
+                    }
+                },
+                upsert: true
+            }        
+        }})
+    ).then(function(response){        
+        res.send(response)
+    })
+})
+
 module.exports = router

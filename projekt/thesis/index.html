@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/snikuws.css">
     <link rel="stylesheet" href="/angularjs-toast/angularjs-toast.min.css">
     <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css">
 
     
     <script type="text/javascript" src="/angular/angular.min.js"></script> 
@@ -21,28 +22,53 @@
     <script type="text/javascript" src="/angular-animate/angular-animate.min.js"></script>
     <script type="text/javascript" src="/angular-sanitize/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="/angularjs-toast/angularjs-toast.min.js"></script>
+    <script type="text/javascript" src="/moment/min/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="/@fortawesome/fontawesome-free/js/all.min.js"></script>
+    <script type="text/javascript" src="/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>    
     <script type="text/javascript" src="/snikuws.js"></script> 
     
 </head>
     <body ng-app="app-root-controller" ng-controller="main-controller">
-        <div class="container-fluid">
+        <div class="container-fluid" style="padding: 0px">
             <nav class="navbar navbar-default">
-                <div class="container-fluid">
+                <div class="container-fluid">                          
                     <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Snikuws</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">                       
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">SNiKUWS</a>
                     </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#!/mainPage">Strona główna</a></li>
-                        <li><a href="#!/clientPage">Strefa Klienta</a></li>
-                        <li><a href="#">Page 2</a></li>
-                        <li><a href="#">Page 3</a></li>
+                        <li><a href="#!/clientPage">Strefa Klienta</a></li>                             
+                    </ul>                    
+                    <ul class="nav navbar-nav navbar-right">                        
+                        <li class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user" style="width: 50px; height: 50px; padding: 10px"></i>
+                            <span ng-if='currentUser' class="navbar-text navbar-right" style="position: relative; right: 10px">
+                                {{$root.currentUser.username}}
+                            </span>
+                            <!-- <span class="caret"></span> -->
+                            <!-- <span ng-if='currentUser' class=" caret navbar-text navbar-right">
+                                {{$root.currentUser.username}}
+                            </span>  -->
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="openUserLoginModal()">Logowanie</a></li>
+                            <li><a ng-click="openUserManagementModal()">Zakładanie konta</a></li>                            
+                            <li role="separator" class="divider"></li>
+                            <li><a ng-click="logout()">Wyloguj</a></li>
+                        </ul>
+                        </li>
                     </ul>
-                    <p ng-if='currentUser' class="navbar-text navbar-right">
-                        {{$root.currentUser.username}}
-                    </p>
+                    </div>
                 </div>
-            </nav>
+            </nav>            
             <div ng-view></div>            
         </div>
     </body>

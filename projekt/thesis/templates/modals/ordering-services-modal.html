@@ -1,0 +1,206 @@
+<script id="customMonthCell.html" type="text/ng-template">    
+  <div  class="cal-month-day {{day.cssClass}}" 
+        ng-style="{ 'background-color': (day.isToday === true && day.inMonth) ? '#337ab7' : '',
+                    'cursor': (day.isFuture && day.inMonth && !day.isWeekend || day.isToday && day.inMonth && !day.isWeekend) ? 'pointer': '',
+                    'color': (day.isToday === true) ? 'white' : 'black'}"
+        ng-click="day.isFuture && day.inMonth && !day.isWeekend || day.isToday && day.inMonth && !day.isWeekend ? vm.calendarCtrl.dateClicked(day.date) : '' ">
+
+    <span
+        ng-if="day.inMonth"
+        class="pull-right"
+        data-cal-date      
+        ng-bind="day.label"      
+        ng-style="{'font-weight' : (day.isToday === true) ? 'bold' : '', 'margin' : (day.events.length > 0) ? 0 : ''}">
+    </span> 
+
+    <div ng-if="day.events.length > 0" 
+         ng-repeat="event in day.events track by $index" 
+         style="font-size: 11px;"
+         ng-style="{'color': (day.isToday === true) ? 'white' : 'black'}">
+        <p style="margin-bottom: 2px">{{event.title}}</p>
+        <p style="margin-bottom: 2px">{{event.duration}}</p>
+    </div>
+
+  </div>
+</script>
+
+<form class="form-horizontal">
+    <div class="modal-header">
+        <h3>Zamawianie usługi</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row form-group bookmarks-container">
+            <div class="col-xs-2" ng-click="changeBookmark(0)" ng-class="activeBookmark === 0 ? 'selected' : 'regular'">Usługi</div>
+            <div class="col-xs-2" ng-click="changeBookmark(1)" ng-class="activeBookmark === 1 ? 'selected' : 'regular'">Termin</div>
+            <div class="col-xs-2" ng-click="changeBookmark(2)" ng-class="activeBookmark === 2 ? 'selected' : 'regular'">Podsumowanie</div>
+        </div>
+        <div ng-show="activeBookmark === 1">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div class="btn-group">                    
+                        <button
+                            class="btn btn-primary"
+                            mwl-date-modifier
+                            date="viewDate"
+                            decrement="calendarView"
+                            ng-click="cellIsOpen = false">
+                            Poprzedni
+                        </button>
+                        <button
+                            class="btn btn-default"
+                            mwl-date-modifier
+                            date="viewDate"
+                            set-to-today
+                            ng-click="cellIsOpen = false">
+                            Dziś
+                        </button>
+                        <button
+                            class="btn btn-primary"
+                            mwl-date-modifier
+                            date="viewDate"
+                            increment="calendarView"
+                            ng-click="cellIsOpen = false">
+                            Następny
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <mwl-calendar
+                        view="calendarView"
+                        view-date="viewDate"
+                        events="events"
+                        view-title="calendarTitle"                       
+                        cell-is-open="false"
+                        cell-auto-open-disabled="true"
+                        on-view-change-click="bookingDate(calendarNextView, calendarDate)"
+                        cell-modifier="cellModifier(calendarCell)"
+                        custom-template-urls="{calendarMonthCell: 'customMonthCell.html'}">
+                    </mwl-calendar>
+                </div>
+            </div>
+        </div>
+        <div ng-show="activeBookmark === 0">
+            <div class="row">    
+                <div class="row form-group">
+                    <label class="form-label col-xs-6">Twoja nazwa zamówienia</label>
+                    <div class="col-xs-6">
+                        <input  class="form-control" 
+                                ng-model="serviceOrder.title" 
+                                placeholder="np. Audi - wymiana oleju"
+                                ng-style="{'border': serviceOrder.title !== null ? '' : 'solid 2px rgba(255,44,0,0.3)'}">  
+                    </div>                
+                </div>            
+                <div class="row form-group">
+                    <label class="form-label col-xs-6">Wybór pojazdu</label>
+                    <div class="col-xs-6">
+                        <select class="form-control" 
+                                ng-model="serviceOrder.vehicleCardId" 
+                                ng-options="vehicle.vehicleCardId as vehicle.vehicle for vehicle in userVehiclesCards"
+                                ng-style="{'border': serviceOrder.vehicleCardId !== null ? '' : 'solid 2px rgba(255,44,0,0.3)'}" > 
+                        </select>
+                    </div>                
+                </div>
+                <div class="row form-group">
+                    <label class="form-label col-xs-6">Kategoria</label>
+                    <div class="col-xs-6"> 
+                        <sn-dictionary-select                            
+                            sn-value="serviceType"
+                            sn-dict-key="'Services'"        
+                            sn-required="true">
+                        </sn-dictionary-select>
+                    </div>
+                </div>
+                <div class="row">                        
+                    <div class="col-xs-12"> 
+                        <sn-dictionary-list                                                            
+                            sn-dict-key="serviceType"        
+                            sn-dict-parent-key="'Services'"
+                            sn-dict-list="serviceOrder.servicesList"
+                            sn-change="summaryOrder(list)">
+                        </sn-dictionary-list>
+                    </div>
+                </div>                   
+            </div>  
+        </div>
+        <div ng-show="activeBookmark === 2">
+            <div class="row form-group">
+                <div class="col-xs-8">
+                    <label class="form-label col-xs-12">Tytuł zamówienia:</label>
+                    <div class="row">
+                        <div class="col-xs-12" ng-if="serviceOrder.title !== null">
+                            {{serviceOrder.title}}
+                        </div>
+                        <div class="col-xs-12" ng-if="serviceOrder.title === null">
+                            {{serviceOrder.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-8">
+                    <label class="form-label col-xs-12">Wybrany pojazd:</label>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {{showVehicle()}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-8">                        
+                    <label class="form-label col-xs-12">Zamówione usługi:</label>
+                    <div class="row" ng-if="allActivities.length === 0">
+                        <div class=col-xs-12>Nie wybrano usług</div>
+                    </div>
+                    <div class="row" ng-repeat="activity in allActivities">
+                        <div class="col-xs-12">
+                            - {{activity.activity}}
+                        </div>
+                    </div>                    
+                </div>                    
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-8">                        
+                    <label class="form-label col-xs-12">Data zamówienia:</label>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {{returnOrderDate()}}
+                        </div>
+                    </div>                    
+                </div>                    
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-8">                        
+                    <label class="form-label col-xs-12">Szacowany czas wykonania usługi:</label>
+                    <div class="row">                        
+                        <div class="col-xs-12">
+                            {{totalHours}} godzin
+                        </div>                        
+                    </div>                    
+                </div>                    
+            </div>
+            <div class="row form-group">
+                    <div class="col-xs-8">                        
+                        <label class="form-label col-xs-12">Szacowany koszt wykonania usługi:</label>
+                        <div class="row">                        
+                            <div class="col-xs-12">
+                                {{totalMoney}} złotych
+                            </div>                        
+                        </div>                    
+                    </div>                    
+                </div>                                                   
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-12 text-right">
+                <button class="btn" ng-if="activeBookmark !== 0" ng-click="previous()">Wstecz</button>                                                
+                <button class="btn" ng-if="activeBookmark !== 2" ng-click="next()">Dalej</button>                            
+                <button class="btn" ng-if="activeBookmark === 2" ng-click="yes()">Zamów</button>                            
+                <button class="btn" ng-click="no()">Zamknij</button>                                           
+            </div>
+        </div>
+    </div>
+</form>

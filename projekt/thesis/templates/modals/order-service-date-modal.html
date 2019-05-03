@@ -1,0 +1,42 @@
+<form class="form-horizontal">
+    <div class="modal-header">
+        <h3>Zarezerwuj godzinę usługi</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row form-group">                   
+            <label class="col-form-label col-xs-2 text-right" style="position: relative; top: 50px">Od</label>
+            <div class="col-xs-2">
+                <div 
+                    uib-timepicker 
+                    ng-model="startsAt" 
+                    ng-change="changed()" 
+                    hour-step="hstep" 
+                    minute-step="mstep" 
+                    show-meridian="ismeridian"
+                    readonly-input="true">
+                </div>                        
+            </div> 
+        </div>
+        <div class="row form-group">
+            <label class="col-form-label col-xs-2 text-right" style="position: relative; top: 50px">Do</label>
+            <div class="col-xs-2">
+                <div 
+                    uib-timepicker 
+                    ng-model="endsAt"                     
+                    hour-step="hstep" 
+                    minute-step="mstep" 
+                    show-meridian="ismeridian"
+                    readonly-input="true">
+                </div>                        
+            </div>        		
+        </div>        
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-12 text-right">
+            <button class="btn confirm-btn" ng-click="yes()">Zarezerwuj</button>                            
+            <button class="btn" ng-click="no()">Anuluj</button>                           
+        </div>
+      </div>
+    </div>
+</form>

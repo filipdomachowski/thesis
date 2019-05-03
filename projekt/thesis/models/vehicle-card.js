@@ -1,13 +1,20 @@
 const database = require('../db')
+const serviceNote = require('./service-note')
 
 const vehicleCardObj = database.Schema({    
     userId: String,
     brand: String,
     model: String,
-    body: {type: String, required: false},
+    generation: String,
+    body: String,
+    fuelType: String,
     engine: String,  
-    horsepower: Number,  
-    milage: Number
+    horsepower: String,  
+    transmissionType: String,
+    milage: Number,
+    carLicensePlates: String,
+    yearOfProduction: Number,    
+    serviceHistory: [serviceNote.schema]
 })
 
 module.exports = database.model('VehicleCard', vehicleCardObj)

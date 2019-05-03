@@ -22,13 +22,19 @@ router.post('/', (req, res, next) => {
     var cards = [];
     body.forEach((newCard) =>{        
         var vehicleCard = new VehicleCard({
-            userId: newCard.userId,
-            brand:  newCard.brand,
-            model:  newCard.model,
-            body:   newCard.body,
-            engine: newCard.engine,
-            horsepower: newCard.horsepower,
-            milage: newCard.milage,        
+            userId:             newCard.userId,
+            brand:              newCard.brand,
+            model:              newCard.model,
+            generation:         newCard.generation,
+            body:               newCard.body,
+            fuelType:           newCard.fuelType,
+            engine:             newCard.engine,
+            horsepower:         newCard.horsepower,
+            transmissionType:   newCard.transmissionType,
+            milage:             newCard.milage,              
+            carLicensePlates:   newCard.carLicensePlates,
+            yearOfProduction:   newCard.yearOfProduction,    
+            serviceHistory:     newCard.serviceHistory 
         })        
         cards.push(vehicleCard)        
     })

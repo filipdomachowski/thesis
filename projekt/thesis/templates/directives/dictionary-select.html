@@ -3,9 +3,15 @@
     type="text" 
     readonly
     ng-model="dictItem" 
-    ng-click="expandList()">
-<div ng-if="listExpanded" 
-    ng-repeat="item in itemsList" 
-    ng-click="selectItem(item); snChange({item: item.key})" 
-    style="background-color:lightgreen">{{item.key}}
-</div>
+    ng-click="expandList()"
+    ng-required="snRequired"
+    ng-class="snRequired ? (dictItem !== null ? 'ng-valid' : 'ng-invalid') : 'ng-valid'"
+    style="background-color: white">
+<div class="list-wrapper" ng-if="listExpanded">
+    <div
+        class="list-expand-item"
+        ng-repeat="item in itemsList" 
+        ng-click="selectItem(item); snChange({item: item.key})">{{item.key}}
+    </div>
+</div>    
+    

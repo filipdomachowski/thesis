@@ -4,10 +4,13 @@ const snDictionarySelect = function(){
 		templateUrl: '/templates/directives/dictionary-select.html',		
 		scope: {		
             snValue:    '=',
-            snParam: '=',
+            snDesc:     '=',
+            snParam:    '=',
+            snParam2:   '=',
             snDictKey:  '=',
             snParentKey:'=?',
-            snChange: '&'                 
+            snChange:   '&',
+            snRequired: '<'               
 		},
 		controller:['$scope', '$http',
 			function($scope, $http) {                                                
@@ -37,7 +40,7 @@ const snDictionarySelect = function(){
                             }, function error(response){
                                 //TOSTER Z INFORMACJĄ O BŁEDZIE POBRANIA DANYCH ZE SŁOWNIKA
                             }
-                        )                        
+                        )                   
                     }else{                    
                         $http({method: 'GET', url: '/api/dictionaries/' + urlParam}).then(
                             function success(response){
@@ -53,6 +56,9 @@ const snDictionarySelect = function(){
                 $scope.selectItem = function(item){
                     $scope.dictItem = item.key
                     $scope.snValue = item.key
+                    $scope.snParam = item.param
+                    $scope.snParam2 = item.param2
+                    $scope.snDesc = item.description
                     $scope.listExpanded = false                    
                 }
                 
@@ -60,19 +66,23 @@ const snDictionarySelect = function(){
                     $scope.dictItem = newVal
                 })
 
-                if($scope.snDictKey !== null && $scope.snDictKey !== undefined && $scope.snParentKey !== null){
-                    $scope.getDictionary($scope.snDictKey)
-                }else if($scope.snParentKey !== undefined){
-                    $scope.$watch('snParentKey', (newKey, oldKey) => {
-                        if(newKey !== undefined && newKey !== null){                           
-                            $scope.getDictionary($scope.snDictKey, newKey)                        
-                        } 
-                    })                    
+                if($scope.snDictKey !== null && $scope.snDictKey !== undefined){
+                    $scope.getDictionary($scope.snDictKey, $scope.snParentKey)
+                // }else if($scope.snParentKey !== undefined){
+                //     $scope.$watch('snParentKey', (newKey, oldKey) => {
+                //         if(newKey !== undefined && newKey !== null && $scope.snDictKey !== null){                           
+                //             $scope.getDictionary($scope.snDictKey, newKey)                        
+                //         } 
+                //     })                    
                 }else{
                     $scope.$watch('snDictKey', (newKey, oldKey) => {
                         if(newKey !== undefined && newKey !== null) { 
-                            $scope.snChange                           
-                            $scope.getDictionary(newKey)                        
+                            $scope.snChange 
+                            if($scope.snParentKey !== null && $scope.snParentKey !== undefined){
+                                $scope.getDictionary(newKey, $scope.snParentKey)
+                            }else{
+                                $scope.getDictionary(newKey)                        
+                            }                       
                         }
                     })                    
                 }                                

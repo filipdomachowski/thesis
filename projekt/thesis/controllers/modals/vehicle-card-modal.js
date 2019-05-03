@@ -3,17 +3,25 @@ var vehicleCardModal = function(){
 		templateUrl: '/templates/modals/vehicle-card-modal.html',
         backdrop: 'static',         
         windowClass: 'responsive-size',
-        controller:['$scope', '$rootScope', '$uibModalInstance', '$http', function ($scope, $rootScope, $uibModalInstance, $http) {
+        controller:['$scope', '$rootScope', '$uibModalInstance', '$http', 'toast', function ($scope, $rootScope, $uibModalInstance, $http, toast) {
             
             $scope.currentPage = 1;
             $scope.itemsPerPage = 1;            
 
             $scope.vehicleCardsList = [{
-                userId: $rootScope.currentUser._id,
-                brand: null,
-                model: null,
+                userId: $rootScope.currentUser._id,                
+                brand:  null,
+                model:  null,
+                generation: null,
+                body:   null,
+                fuelType: null,
                 engine: null,
-                milage: null
+                horsepower: null,
+                transmissionType: null,
+                milage: null,
+                carLicensePlates: null,
+                yearOfProduction: null,
+                serviceHistory: []
             }];          
             
             $scope.callback = function(item, key, toDelete, index){
@@ -28,24 +36,53 @@ var vehicleCardModal = function(){
 
             $scope.addVehicleCard = function(){
                 $scope.vehicleCardsList.push({
-                    userId: $rootScope.currentUser._id,
-                    brand: null,
-                    model: null,
+                    userId: $rootScope.currentUser._id,                
+                    brand:  null,
+                    model:  null,
+                    body:   null,
                     engine: null,
-                    milage: null
+                    horsepower: null,
+                    milage: null,
+                    carLicensePlates: null,
+                    yearOfProduction: null,
+                    serviceHistory: []
                 })
             }
 
             $scope.show = function(){
                 console.log($scope.vehicleCardsList)
-            }
-  
+            }         
+            
+            $scope.removeVehicleCard = function(cardIndex){
+            	$scope.vehicleCardsList.splice(cardIndex, 1)
+            }  
+
             $scope.yes = function(){
                 $http({ method: 'POST', url: '/api/vehicle-card', data: $scope.vehicleCardsList }).then(
                     function success(response){
-                        $scope.$emit('notification', "Dodano kartę pojazdu", "alert-success")
+                        toast({
+                            duration: 5000,
+                            message: 'Dodano kartę pojazdu',
+                            className: 'alert-success'
+                        })
+                        $scope.vehicleCardsList = [{
+                            userId: $rootScope.currentUser._id,                
+                            brand:  null,
+                            model:  null,
+                            body:   null,
+                            engine: null,
+                            horsepower: null,
+                            milage: null,
+                            carLicensePlates: null,
+                            yearOfProduction: null,
+                            serviceHistory: []
+                        }];          
                     }, function error(response){
-                        $scope.$emit('notification', `Błąd podczas dodawania karty pojazdu: ${response.data}`, "alert-danger")
+                        toast({
+                            duration: 5000,
+                            message: 'Wystąpił błąd podczas dodawania karty pojazdu',
+                            className: 'alert-danger'
+                        })
                     }
                 )
             }

@@ -14,6 +14,8 @@ app.use('/api/vehicle-card/:id',            require('./controllers/api/vehicle-c
 app.use('/api/dictionaries',                require('./controllers/api/dictionaries'))
 app.use('/api/dictionaries/:key',           require('./controllers/api/dictionaries'))
 app.use('/api/dictionaries/:key/:parentKey', require('./controllers/api/dictionaries'))
+app.use('/api/service-orders',              require('./controllers/api/ordering-service'))
+app.use('/api/service-orders/:id',          require('./controllers/api/ordering-service'))
 
 app.use('/', require('./controllers/static'))
 
