@@ -1,11 +1,11 @@
 var VehicleCard = require('../../models/vehicle-card')
 var router = require('express').Router() //obiekt router używany jako warstwa pośrednicząca aplikacji
 
+
 router.get('/:id', (req, res, next) =>{    
     if(!req.headers['x-auth']){
         return res.send(401)
     }
-    console.log(req.params)
     VehicleCard.find({userId : req.params.id}, (err, card) =>{
         if(err) {return next(err)}
         res.status(201).json(card)

@@ -3,15 +3,18 @@
         
     </div>
     <div class="row body-area">
-        <div class="col-md-8 col-md-offset-2 col-xs-12">
+        <div class="col-md-8 col-md-offset-2 col-xs-12" style="background-color: gray; border-radius: 30px; color: white; margin-bottom: 30px">
             <h4>Witamy na stronie naszego warsztatu</h4>
             <p>Jest to platforma stworzona dla wygody użytkownika</p>
             <p>W strefie klienta możesz założyć konto, zapisać kartę swojego pojazdu oraz zamawiać usługi online.</p>
             <p>Zachęcamy do korzystania z naszych usług!</p>
             <p>Poniżej będą znajdować się informacje o promocajch, rabatach i pracy warsztatu w zależności od rożnych okoliczności.</p>
         </div>
-        <div class="col-md-8 col-md-offset-2 col-xs-12" ng-repeat="note in notes">            
-            <sn-information-note sn-note-text="note.text"></sn-information-note>
+        <div class="col-md-8 col-md-offset-2 col-xs-12" ng-if="$root.currentUser.username === 'admin'" style="margin-bottom: 30px">            
+            <button class="btn" ng-click="addNote()">Dodaj notatkę</button>
+        </div>
+        <div class="col-md-8 col-md-offset-2 col-xs-12" ng-repeat="note in notes | orderBy: '-date'" style="padding: 0px">            
+            <sn-information-note sn-note-obj="note" sn-index="$index"></sn-information-note>
         </div>
     </div>
     <div class="row footer-area">        

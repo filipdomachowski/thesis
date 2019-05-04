@@ -5,7 +5,7 @@ const port = 7070;
 
 app.use(bodyParser.json())
 
-app.use(require('./auth'))
+// app.use(require('./auth'))
 app.use('/api/sessions',                    require('./controllers/api/sessions'))
 app.use('/api/users',                       require('./controllers/api/users'))
 app.use('/api/text-notes',                  require('./controllers/api/text-notes'))

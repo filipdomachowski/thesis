@@ -1,8 +1,52 @@
-<div class="row">
-    <div class="col-xs-12">
-        <i class="fas fa-times"></i>
-        <i class="fas fa-edit"></i>        
-        <i class="fas fa-save" ng-click="saveNote()"></i>
-        <textarea class="text-area-sn-information-note" ng-model="text"></textarea>
+<div class="row" style="padding: 0px; margin-bottom: 30px" ng-if="!deleted">
+    <div class="col-xs-12" style="padding: 0px">        
+        <div class="admin-note-wrapper" ng-class="preview ? 'user-note-wrapper' : 'admin-note-wrapper'" ng-if="$root.currentUser.username === 'admin'">
+            <div class="date-wrapper">{{noteObj.date}}</div>
+            <div class="note-options-wrapper">
+                <button class="small-btn pull-left" ng-click="sizePlus('header')"><i class="fas fa-plus"></i></i></button>
+                <button class="small-btn pull-left" ng-click="sizeMinus('header')"><i class="fas fa-minus"></i></button>
+                <button class="small-btn pull-left" ng-click="alignLeft('header')"><i class="fas fa-align-left"></i></button>
+                <button class="small-btn pull-left" ng-click="alignCenter('header')"><i class="fas fa-align-center"></i></button>
+                <button class="small-btn pull-left" ng-click="alignRight('header')"><i class="fas fa-align-right"></i></button>
+                <button class="small-btn" ng-click="removeNote()"><i class="fas fa-times"></i></button>
+                <button class="small-btn" ng-click="previewNote()"><i class="fas fa-search"></i></button>
+                <button class="small-btn" ng-click="saveNote()"><i class="fas fa-save"></i></button>
+            </div>
+            <textarea
+                ng-attr-id="{{'header-area'+index}}"
+                class="sn-information-header"
+                ng-model="noteObj.header"
+                ng-style="headerStyleFn()">
+            </textarea>
+            <div class="note-options-wrapper">
+                <button class="small-btn pull-left" ng-click="sizePlus('text')"><i class="fas fa-plus"></i></i></button>                    
+                <button class="small-btn pull-left" ng-click="sizeMinus('text')"><i class="fas fa-minus"></i></button>
+                <button class="small-btn pull-left" ng-click="alignLeft('text')"><i class="fas fa-align-left"></i></button>
+                <button class="small-btn pull-left" ng-click="alignCenter('text')"><i class="fas fa-align-center"></i></button>
+                <button class="small-btn pull-left" ng-click="alignRight('text')"><i class="fas fa-align-right"></i></button>
+            </div>            
+            <textarea 
+                ng-attr-id="{{'text-area'+index}}"
+                class="sn-information-note" 
+                ng-model="noteObj.text"
+                ng-style="textStyleFn()">
+            </textarea>
+        </div>  
+
+        <div class="user-note-wrapper" ng-if="$root.currentUser.username !== 'admin'">
+            <div class="date-wrapper">{{noteObj.date}}</div>
+            <textarea
+                class="sn-information-header"
+                ng-model="noteObj.header"
+                ng-style="headerStyleFn()"
+                readonly>
+            </textarea>       
+            <textarea 
+                class="sn-information-note" 
+                ng-model="noteObj.text"
+                ng-style="textStyleFn()" 
+                readonly>
+            </textarea>
+        </div>
     </div>
 </div>

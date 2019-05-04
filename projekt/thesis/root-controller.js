@@ -4,8 +4,7 @@ var appMainController = angular.module('app-root-controller', ['ngRoute', 'ui.bo
 .directive('snDictionarySelect', snDictionarySelect)
 .directive('snDictionaryList', snDictionaryList)
 .service('userSvc', ['$http', userSvc])
-.config(['calendarConfig', function(calendarConfig){
-    console.log(calendarConfig)
+.config(['calendarConfig', function(calendarConfig){    
     moment.locale('pl')
     calendarConfig.dateFormatter = 'moment'
     calendarConfig.i18nStrings.weekNumber = 'Tyg. {week}'
@@ -14,7 +13,6 @@ var appMainController = angular.module('app-root-controller', ['ngRoute', 'ui.bo
         occupied: 'red',
         users: 'blue'
     }
-
 }])
 
 appMainController.controller('main-controller', ['$scope', '$rootScope', '$location','$uibModal', 'userSvc', 'toast',  function($scope, $rootScope, $location, $uibModal, userSvc, toast){    

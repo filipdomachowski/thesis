@@ -1,3 +1,8 @@
+body{
+	background-image: url("tools-1541547.jpg");
+	background-size: cover
+}
+
 .row {	
 	padding: 0 15px;
 	margin-left: 0px !important;	
@@ -155,16 +160,18 @@ input:focus, select:focus{
 	text-align: center;
 	font-weight: 600;
 	font-size: 16px;
-	background-color: #6c757d
+	background-color: #6c757d;
 	color: white;
 	cursor: pointer;
 	margin-bottom:10px;
-	transition: background-color 0.5s ease
+	transition: background-color 0.5s ease, box-shadow 0.5s ease;
+	box-shadow: 5px 5px 5px #464646;
 }
 
 .user-opt-btn:hover{
 	background-color: grey;
-	transition: background-color 0.5s ease
+	transition: background-color 0.5s ease, box-shadow 0.5s ease;
+	box-shadow: 5px 5px 5px #337ab7
 }
 
 .icon-wrapper{
@@ -182,10 +189,56 @@ input:focus, select:focus{
     height: 25px;
 	border-radius: 20px;
     margin-right: 5px;
-	transition: background-color 0.5s ease
+	transition: background-color 0.5s ease;
+	outline: none
 }
 
 .small-btn:hover{
 	background-color: #808080;
 	transition: background-color 0.5s ease
+}
+
+.note-options-wrapper{
+	display: inline-block;
+	width: 100%
+}
+
+.date-wrapper{
+	display: inline-block;
+	float: right;
+	padding-right: 15px
+}
+
+.admin-note-wrapper .sn-information-header{
+	width: 100%;
+	resize: vertical;
+}
+
+.admin-note-wrapper .sn-information-note{	
+	width: 100%;	
+	resize: vertical;
+}
+
+.user-note-wrapper{
+	color: #fff;
+    background-color: #337ab7;
+	border-radius: 30px;
+	padding: 0px 15px;
+	box-shadow: 5px 5px 5px gray;
+}
+
+.user-note-wrapper .sn-information-header{
+	width: 100%;
+	color: #fff;
+    background-color: #337ab7;
+	border: none;	
+	resize: none;
+}
+
+.user-note-wrapper .sn-information-note{
+	width: 100%;
+	color: #fff;
+    background-color: #337ab7;
+	border: none;
+	resize: none;	
 }

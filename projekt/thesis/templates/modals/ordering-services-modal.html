@@ -1,8 +1,8 @@
 <script id="customMonthCell.html" type="text/ng-template">    
   <div  class="cal-month-day {{day.cssClass}}" 
-        ng-style="{ 'background-color': (day.isToday === true && day.inMonth) ? '#337ab7' : '',
+        ng-style="{ 'background-color': (day.isToday && day.inMonth) ? 'grey' : '',                    
                     'cursor': (day.isFuture && day.inMonth && !day.isWeekend || day.isToday && day.inMonth && !day.isWeekend) ? 'pointer': '',
-                    'color': (day.isToday === true) ? 'white' : 'black'}"
+                    'color': (day.isToday) ? 'white' : 'black'}"
         ng-click="day.isFuture && day.inMonth && !day.isWeekend || day.isToday && day.inMonth && !day.isWeekend ? vm.calendarCtrl.dateClicked(day.date) : '' ">
 
     <span
@@ -10,13 +10,14 @@
         class="pull-right"
         data-cal-date      
         ng-bind="day.label"      
-        ng-style="{'font-weight' : (day.isToday === true) ? 'bold' : '', 'margin' : (day.events.length > 0) ? 0 : ''}">
+        ng-style="{'font-weight' : (day.isToday) ? 'bold' : '', 'margin' : (day.events.length > 0) ? 0 : ''}">
     </span> 
 
     <div ng-if="day.events.length > 0" 
          ng-repeat="event in day.events track by $index" 
          style="font-size: 11px;"
-         ng-style="{'color': (day.isToday === true) ? 'white' : 'black'}">
+         ng-style="{'color': (day.isToday || event.inEditing) ? 'white' : 'black',
+                    'background-color': (event.inEditing) ? '#337ab7' : ''}">
         <p style="margin-bottom: 2px">{{event.title}}</p>
         <p style="margin-bottom: 2px">{{event.duration}}</p>
     </div>
@@ -196,10 +197,10 @@
     <div class="modal-footer">
         <div class="row">
             <div class="col-12 text-right">
-                <button class="btn" ng-if="activeBookmark !== 0" ng-click="previous()">Wstecz</button>                                                
-                <button class="btn" ng-if="activeBookmark !== 2" ng-click="next()">Dalej</button>                            
-                <button class="btn" ng-if="activeBookmark === 2" ng-click="yes()">Zamów</button>                            
-                <button class="btn" ng-click="no()">Zamknij</button>                                           
+                <button class="btn btn-link" ng-if="activeBookmark !== 0" ng-click="previous()">Wstecz</button>                                                
+                <button class="btn btn-link" ng-if="activeBookmark !== 2" ng-click="next()">Dalej</button>                            
+                <button class="btn btn-primary" ng-if="activeBookmark === 2" ng-click="yes()">Zamów</button>                            
+                <button class="btn btn-default" ng-click="no()">Zamknij</button>                                           
             </div>
         </div>
     </div>

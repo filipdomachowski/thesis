@@ -31,6 +31,7 @@
             }else{
                 $scope.serviceOrder = $scope.orderToEdit
                 $scope.serviceType = $scope.orderToEdit.servicesList[0].parentKey
+                $scope.serviceOrder.inEditing = true
                 $scope.mode = 'EDIT'
             }
 
@@ -43,6 +44,7 @@
                         duration: moment(order.dateFrom).format('HH:mm') + ' - ' + moment(order.dateTo).format('HH:mm'),                        
                         type: order.userId === $rootScope.currentUser._id ? 'users' : 'occupied',
                         color:  order.userId === $rootScope.currentUser._id ? 'users' : 'occupied',
+                        inEditing: order.inEditing
                     }
                 })
                 console.log($scope.events)
@@ -85,15 +87,24 @@
                 else return 'Nie zarezerwowano terminu'
             }
 
-            $scope.bookingDate = function(calendarNextView, calendarDate){
-                console.log(calendarNextView)
+            $scope.bookingDate = function(calendarNextView, calendarDate){                
                 if($scope.serviceOrder.servicesList.length > 0){
-                    $uibModal.open(orderServiceDateModal(calendarDate, $scope.totalHours)).result.then(
-                        function success(result){
-                            $scope.serviceOrder.dateFrom = result[0]
-                            $scope.serviceOrder.dateTo = result[1]
-                        }
-                    )
+                    if($scope.mode === 'EDIT'){
+                        calendarDate = new Date($scope.serviceOrder.dateFrom)
+                        $uibModal.open(orderServiceDateModal(calendarDate, $scope.totalHours, true)).result.then(
+                            function success(result){
+                                $scope.serviceOrder.dateFrom = result[0]
+                                $scope.serviceOrder.dateTo = result[1]
+                            }
+                        )
+                    }else{
+                        $uibModal.open(orderServiceDateModal(calendarDate, $scope.totalHours)).result.then(
+                            function success(result){
+                                $scope.serviceOrder.dateFrom = result[0]
+                                $scope.serviceOrder.dateTo = result[1]
+                            }
+                        )
+                    }
                 }else{
                     toast({
                         duration: 5000,
@@ -120,6 +131,7 @@
             }            
 
             $scope.yes = function(){
+
                 if($scope.mode === 'ADD'){
                     $http({ method: 'POST', url: '/api/service-orders', data: $scope.serviceOrder })
                     .then(function success(response){                    
@@ -129,9 +141,8 @@
                         $scope.updateEvents($scope.orders)
                     })
                 }else{
-                    var arr = []
-                    arr.push($scope.serviceOrder)
-                    $http({ method: 'PATCH', url: '/api/service-orders', data: arr })
+                    delete $scope.serviceOrder.inEditing                                        
+                    $http({ method: 'PATCH', url: '/api/service-orders', data: $scope.serviceOrder })
                     .then(function success(response){                    
                         return $http({method: 'GET', url: '/api/service-orders'})			
                     }).then(function success(response){

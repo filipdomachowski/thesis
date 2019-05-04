@@ -1,4 +1,4 @@
-var orderServiceDateModal = function(calendarDate, totalHours){
+var orderServiceDateModal = function(calendarDate, totalHours, inEditing){
 	return {
 		templateUrl: '/templates/modals/order-service-date-modal.html',
         backdrop: 'static',         
@@ -9,8 +9,9 @@ var orderServiceDateModal = function(calendarDate, totalHours){
 
             $scope.hstep = 1
             $scope.mstep = 60
-            $scope.startsAt = moment(calendarDate).add(moment().hours(), 'hours').format()
-            $scope.endsAt = moment($scope.startsAt).add(totalHours, 'hours').format()
+            if(inEditing) $scope.startsAt = moment(calendarDate)
+            else $scope.startsAt = moment(calendarDate).add(moment().hours(), 'hours')            
+            $scope.endsAt = moment($scope.startsAt).add(totalHours, 'hours')
 
             $scope.changed = function(){
                 $scope.endsAt = moment($scope.startsAt).add(totalHours, 'hours').format()

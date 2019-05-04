@@ -40,32 +40,17 @@ router.post('/', (req, res, next) => {
 })
 
 router.patch('/', function(req, res){         
-    Order.bulkWrite(req.body.map(function(order){
-        return {
-            updateOne:{
-                filter:{
-                    _id : order._id
-                },
-                update:{
-                    $set:{
-                        userId:         order.userId,
-                        vehicleCardId:  order.vehicleCardId,
-                        title:          order.title,    
-                        dateFrom:       order.dateFrom,
-                        dateTo:         order.dateTo,
-                        servicesList:   order.servicesList,
-                    }
-                },
-                upsert: true
-            }        
-        }})
-    ).then(function(response){        
-        res.send(response)
-    })
+    var orderPatch = req.body
+    Order.findById(orderPatch._id, (err, order) => {
+        order.set(orderPatch)
+
+        order.save((err, order) => {
+            res.send(order)
+        })
+    })    
 })
 
-router.delete('/:id', function(req, res){    
-    console.log("no halo: ", req.params)
+router.delete('/:id', function(req, res){        
     Order.findByIdAndRemove({_id: req.params.id}).then(function(order){
         res.send(order)
     })    

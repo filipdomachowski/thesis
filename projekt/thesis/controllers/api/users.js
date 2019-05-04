@@ -10,18 +10,22 @@ router.get('/', (req, res, next) => {
         return res.sendStatus(401)
     }    
     let auth = jwt.decode(req.headers['x-auth'], config.secret)
-    User.findOne({username: auth.username}, function(err, user){
-        if(err) { return next(err) }
+    User.findOne({username: auth.username}, function(err, user){        
+        if(err) { return next(err) }        
         res.json(user)
     })    
 });
 
 router.post('/', function(req, res, next){
     let user = new User({username: req.body.username})
+    if(req.body.isUserAdmin){        
+        console.log(req.body)
+        user.isUserAdmin = req.body.isUserAdmin        
+    }
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         user.password = hash
         user.save((err) =>{
-            if (err) {return next(err) }
+            if (err) {return next(err) }            
             res.sendStatus(201)
         })
     })
