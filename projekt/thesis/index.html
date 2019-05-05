@@ -44,7 +44,8 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#!/mainPage">Strona główna</a></li>
-                        <li><a href="#!/clientPage">Strefa Klienta</a></li>                             
+                        <li ng-if="$root.currentUser.username === 'admin'"><a href="#!/servicePage">Strefa Serwisowa</a></li>                             
+                        <li ng-if="$root.currentUser.username"><a href="#!/clientPage">Strefa Klienta</a></li> 
                     </ul>                    
                     <ul class="nav navbar-nav navbar-right">                        
                         <li class="dropdown">

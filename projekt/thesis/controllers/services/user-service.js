@@ -1,4 +1,4 @@
-const userSvc = function($http){
+const userSvc = function($http, toast){
     const svc = this
 
     svc.getUser = () => {
@@ -12,11 +12,17 @@ const userSvc = function($http){
         }
 
         return $http({ method: 'POST', url: '/api/sessions', data: obj })
-        .then((token) => {
+        .then((token) => {                        
             svc.token = token.data
             $http.defaults.headers.common['X-Auth'] = token.data
-            sessionStorage.userToken = svc.token
+            sessionStorage.userToken = svc.token            
             return svc.getUser()
+        }, function(){
+            toast({
+                duration: 5000,
+                message: 'Bład logowania. Sprawd hasło lub nazwę użytkownika',
+                className: 'alert-danger'
+            })
         })
     }
 

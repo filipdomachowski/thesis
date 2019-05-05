@@ -12,7 +12,7 @@ var loginModal = function(){
                 userSvc.login($scope.username, $scope.password)
                     .then(function(user){
                         $uibModalInstance.close(user.data)
-                    })                
+                    });
             }
 
             $scope.$on('login', function(_, user){

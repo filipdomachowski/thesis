@@ -26,15 +26,12 @@ appMainController.controller('client-services-page-controller', ['$scope', '$uib
 			$http({ method: 'GET', url: '/api/vehicle-card/' + $rootScope.currentUser._id })
 			.then(function success(response){                    
 				if(response.data.length > 0){					
-					$scope.vehicleCards = response.data
-					// $scope.$emit('notification', "Pomyślnie pobrano listę Twoich pojazdów", "alert-success")
+					$scope.vehicleCards = response.data					
 					return $http({method: 'GET', url: '/api/service-orders'})
-				}else{
-					// $scope.$emit('notification', "Nie masz jeszcze żadnych zarejestrowanych pojazdów w serwisie", "alert-info")
+				}else{					
 				}
 			}).then(function success(response){
-				$scope.serviceOrders = response.data
-				// $scope.$emit('notification', "Pomyślnie pobrano listę Twoich zamówień", "alert-success")			
+				$scope.serviceOrders = response.data				
 				$uibModal.open(vehicleRegisterModal($scope.vehicleCards))			
 			})			
 		}
@@ -43,15 +40,12 @@ appMainController.controller('client-services-page-controller', ['$scope', '$uib
 			$http({ method: 'GET', url: '/api/vehicle-card/' + $rootScope.currentUser._id })
 			.then(function success(response){                    
 				if(response.data.length > 0){					
-					$scope.vehicleCards = response.data
-					// $scope.$emit('notification', "Pomyślnie pobrano listę Twoich pojazdów", "alert-success")
+					$scope.vehicleCards = response.data					
 					return $http({method: 'GET', url: '/api/service-orders'})
-				}else{
-					// $scope.$emit('notification', "Nie masz jeszcze żadnych zarejestrowanych pojazdów w serwisie", "alert-info")
+				}else{					
 				}
 			}).then(function success(response){
-				$scope.serviceOrders = response.data
-				// $scope.$emit('notification', "Pomyślnie pobrano listę Twoich zamówień", "alert-success")			
+				$scope.serviceOrders = response.data				
 				$uibModal.open(orderingServicesModal($scope.vehicleCards, $scope.serviceOrders))			
 			})		
 		}		
@@ -60,15 +54,12 @@ appMainController.controller('client-services-page-controller', ['$scope', '$uib
 			$http({ method: 'GET', url: '/api/vehicle-card/' + $rootScope.currentUser._id })
 			.then(function success(response){                    
 				if(response.data.length > 0){					
-					$scope.vehicleCards = response.data
-					// $scope.$emit('notification', "Pomyślnie pobrano listę Twoich pojazdów", "alert-success")
+					$scope.vehicleCards = response.data					
 					return $http({method: 'GET', url: '/api/service-orders'})
-				}else{
-					// $scope.$emit('notification', "Nie masz jeszcze żadnych zarejestrowanych pojazdów w serwisie", "alert-info")
+				}else{					
 				}
 			}).then(function success(response){
-				$scope.serviceOrders = response.data
-				// $scope.$emit('notification', "Pomyślnie pobrano listę Twoich zamówień", "alert-success")			
+				$scope.serviceOrders = response.data				
 				$uibModal.open(serviceManagementModal($scope.vehicleCards, $scope.serviceOrders))
 			})
 		}

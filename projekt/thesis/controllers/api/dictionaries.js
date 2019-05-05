@@ -1,6 +1,14 @@
 var Dict = require('../../models/dictionary')
 var router = require('express').Router() //obiekt router używany jako warstwa pośrednicząca aplikacji
 
+
+router.get('/', (req, res, next) => {        
+    Dict.find((err, dict) => {
+        if(err) {return next(err)}
+        res.status(200).json(dict)        
+    }) 
+})
+
 router.get('/:key', (req, res, next) => {        
     Dict.findOne({ key: req.params.key }, (err, dict) => {
         if(err) {return next(err)}
@@ -30,26 +38,14 @@ router.post('/', (req, res, next) => {
 })
 
 router.patch('/', function(req, res){     
-    
-    Dict.bulkWrite(req.body.map(function(dict){
-        return {
-            updateOne:{
-                filter:{
-                    _id : dict._id
-                },
-                update:{
-                    $set:{
-                        key: dict.key,
-                        parentKey: dict.parentKey,
-                        entries: dict.entries
-                    }
-                },
-                upsert: true
-            }        
-        }})
-    ).then(function(response){        
-        res.send(response)
-    })
+    var dictPatch = req.body
+    Dict.findById(dictPatch._id, (err, dict)=>{
+        dict.set(dictPatch)
+
+        dict.save((err, dict) => {
+            res.send(dict)
+        });
+    })     
 })
 
 module.exports = router

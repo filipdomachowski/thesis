@@ -1,5 +1,5 @@
 <div class="row item-container" ng-repeat="item in itemsList">
-    <div class="col-xs-11" style="padding: 0">
+    <div class="col-xs-11" style="padding: 0px; margin-bottom: 10px; font-weight: 600">
         <div class="col-xs-6 item-key" ng-mouseover="showDesc = true" ng-mouseleave="showDesc = false">
             <span>{{item.key}}</span>
         </div>
@@ -11,7 +11,7 @@
             <span ng-if="item.param !== undefined">{{item.param}}</span>
             <span ng-if="item.param === undefined"> - </span>
         </div>
-        <div ng-show="showDesc" class="col-xs-12 item-description">
+        <div class="col-xs-12 item-description" ng-style="{'visibility'}">
             <span>{{item.description}}</span>
         </div>
     </div>

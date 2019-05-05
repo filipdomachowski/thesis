@@ -1,0 +1,76 @@
+<form class="form-horizontal">
+        <div class="modal-header">
+            <h3>Edycja usług</h3>
+        </div>
+        <div class="modal-body">                        
+            <div class="row form-group">
+                <label class="form-label col-xs-12 col-md-6">Wybór kategorii</label>
+                <div class="col-xs-12 col-md-6">
+                    <select class="form-control" 
+                            ng-model="mainCategoryKey" 
+                            ng-options="dict.key for dict in allCategories"
+                            ng-change="getCategoryServices(mainCategoryKey.key)"> 
+                    </select>
+                </div>                
+            </div>  
+            <div class="row form-group">
+                <button class="btn btn-default" ng-click="addNewCategory()">Dodaj kolejną kategorię</button>
+            </div>
+            <div class="row form-group" ng-if="createCategory">
+                <label class="form-label col-xs-12">Nazwa nowej kategorii</label>
+                <div class="col-xs-12">
+                    <input class="form-control" type="text" ng-model="newCategory.key">
+                </div>
+            </div>
+            <div class="row form-group" ng-if="mainCategoryKey">
+                <label class="form-label col-xs-12">Usługi z kategorii '{{mainCategoryKey.key}}'</label>
+                <div class="col-xs-12" style="padding: 0px">
+                    <div class="row form-group" ng-repeat="service in subCategoryDict.entries track by $index">
+                        <div class="col-xs-9" style="padding: 0px">{{service.key}}</div>
+                        <div class="col-xs-3" style="float: right; position: relative; bottom: 3px; padding: 0px">
+                            <button class="small-btn" ng-click="removeEntry(service)"><i class="fas fa-times"></i></button>                            
+                            <button class="small-btn" ng-click="editEntry(service)"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group" ng-if="mainCategoryKey">
+                <button class="btn btn-default" ng-click="addNewEntry()">Dodaj kolejną usługę w tej kategorii</button>            
+            </div>
+            <div ng-if="serviceInEdit">
+                <button class="small-btn" ng-click="closeEditMode()" style="background-color: orange; position: relative; right: 15px"><i class="fas fa-times"></i></button>
+                <div class="row form-group">
+                    <label class="form-label col-xs-12">Nazwa usługi</label>
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" ng-model="serviceInEdit.key">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="form-label col-xs-12">Opis usługi</label>
+                    <div class="col-xs-12">
+                        <textarea class="form-control" type="text" ng-model="serviceInEdit.description" style="resize: vertical; padding: 5px"></textarea>
+                    </div>
+                </div> 
+                <div class="row form-group">
+                    <label class="form-label col-xs-12">Cena usługi</label>
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" ng-model="serviceInEdit.param">
+                    </div>
+                </div>    
+                <div class="row form-group">
+                    <label class="form-label col-xs-12">Czas trwania usługi</label>
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" ng-model="serviceInEdit.param2">
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-primary" ng-click="yes()">Zapisz zmiany</button>
+                <button class="btn btn-default" ng-click="no()">Anuluj</button>                           
+            </div>
+          </div>
+        </div>
+    </form>

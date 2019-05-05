@@ -12,19 +12,19 @@
         <div class="row form-group">
             <label class="form-label col-xs-6">Hasło</label>
             <div class="col-xs-6">
-                <input class="form-control" type="text" ng-model="user.password">
+                <input class="form-control" type="password" ng-model="user.password">
             </div>
         </div>
         <div class="row form-group">
-            <label class="form-label col-xs-6">Powtorz Hasło</label>
+            <label class="form-label col-xs-6">Powtórz Hasło</label>
             <div class="col-xs-6">
-                <input class="form-control" type="text" ng-model="repeatedPassword">
+                <input class="form-control" type="password" ng-model="repeatedPassword">
             </div>
         </div>
     </div>
     <div class="modal-footer">
       <div class="row">
-        <div class="col-12 text-right">
+        <div class="col-xs-12 text-right">
             <button class="btn btn-primary" ng-disabled="(user.username === null) || (user.password !== repeatedPassword)" ng-click="yes()">Utwórz użytkownika</button>                            
             <button class="btn btn-default" ng-click="no()">Zamknij</button>                           
         </div>

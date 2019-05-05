@@ -12,7 +12,7 @@ const snDictionaryList = function(){
 			function($scope, $http) {  
                 
                 $scope.itemsList = []
-                $scope.dictionaryList = []
+                $scope.dictionaryList = []                
 
                 $scope.$watch('snDictKey', (newKey, oldKey) => {
                     if(newKey !== undefined && newKey !== null) {                         
@@ -50,7 +50,7 @@ const snDictionaryList = function(){
                     }else{
                         return false
                     }                     
-                }
+                }               
 
                 $scope.showList = function(){
                     console.log($scope.dictionaryList)

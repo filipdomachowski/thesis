@@ -27,8 +27,8 @@ const snInformationNote = function(){
 				}
 
 				$scope.saveNote = function(){					
-					$scope.noteObj.headerStyle[`height`] = $scope.getHeaderHeight() + 'px'
-					$scope.noteObj.textStyle[`height`] = $scope.getTextHeight() + 'px'
+					$scope.noteObj.headerStyle[`height`] = $scope.getHeaderHeight() + 2 + 'px'
+					$scope.noteObj.textStyle[`height`] = $scope.getTextHeight() + 2 + 'px'
 
 					if($scope.noteObj._id){
 						$http({ method: 'PATCH', url: '/api/text-notes', data: $scope.noteObj })

@@ -1,0 +1,89 @@
+<script id="customMonthCell.html" type="text/ng-template">    
+    <div  class="cal-month-day {{day.cssClass}}" 
+          ng-style="{ 'background-color': (day.isToday && day.inMonth) ? 'grey' : '',                    
+                      'cursor': (day.isFuture && day.inMonth && !day.isWeekend || day.isToday && day.inMonth && !day.isWeekend) ? 'pointer': '',
+                      'color': (day.isToday) ? 'white' : 'black'}"
+          ng-click="day.isFuture && day.inMonth && !day.isWeekend || day.isToday && day.inMonth && !day.isWeekend ? vm.calendarCtrl.dateClicked(day.date) : '' ">
+  
+      <span
+          ng-if="day.inMonth"
+          class="pull-right"
+          data-cal-date      
+          ng-bind="day.label"      
+          ng-style="{'font-weight' : (day.isToday) ? 'bold' : '', 'margin' : (day.events.length > 0) ? 0 : ''}">
+      </span> 
+  
+      <div ng-if="day.events.length > 0" 
+           ng-repeat="event in day.events track by $index" 
+           style="font-size: 11px;"
+           ng-style="{'color': (day.isToday || event.inEditing) ? 'white' : 'black',
+                      'background-color': (event.inEditing) ? '#337ab7' : ''}">
+          <p style="margin-bottom: 2px">{{event.user}}</p>
+          <p style="margin-bottom: 2px">{{event.vehicle}}</p>
+      </div>
+  
+    </div>
+</script>
+
+<form class="form-horizontal">
+    <div class="modal-header">
+        <h3>Podgląd zleceń</h3>
+    </div>
+    <div class="modal-body">                        
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div class="btn-group">                    
+                    <button
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="viewDate"
+                        decrement="calendarView"
+                        ng-click="cellIsOpen = false">
+                        Poprzedni
+                    </button>
+                    <button
+                        class="btn btn-default"
+                        mwl-date-modifier
+                        date="viewDate"
+                        set-to-today
+                        ng-click="cellIsOpen = false">
+                        Dziś
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        mwl-date-modifier
+                        date="viewDate"
+                        increment="calendarView"
+                        ng-click="cellIsOpen = false">
+                        Następny
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- <mwl-calendar
+                    view="calendarView"
+                    view-date="viewDate"
+                    events="events"
+                    view-title="calendarTitle"                       
+                    cell-is-open="false"
+                    cell-auto-open-disabled="true"                    
+                    cell-modifier="cellModifier(calendarCell)">
+                </mwl-calendar> -->
+                <mwl-calendar
+                    events="events"
+                    view="calendarView"
+                    view-date="viewDate">
+                </mwl-calendar> 
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-xs-12 text-right">                                          
+                <button class="btn btn-default" ng-click="no()">Zamknij</button>                                           
+            </div>
+        </div>
+    </div>
+</form>

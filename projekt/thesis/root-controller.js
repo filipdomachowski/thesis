@@ -3,7 +3,7 @@ var appMainController = angular.module('app-root-controller', ['ngRoute', 'ui.bo
 .directive('snInformationNote', snInformationNote)
 .directive('snDictionarySelect', snDictionarySelect)
 .directive('snDictionaryList', snDictionaryList)
-.service('userSvc', ['$http', userSvc])
+.service('userSvc', ['$http', 'toast', userSvc])
 .config(['calendarConfig', function(calendarConfig){    
     moment.locale('pl')
     calendarConfig.dateFormatter = 'moment'
